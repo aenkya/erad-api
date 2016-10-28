@@ -1,0 +1,5 @@
+{
+	"dbURL": "mongodb://localhost:27017/erad-api",
+	"sessionSecret": "DFVDFVJDVDFVDFVJDVDFVDFVJDVDFVDFVJDV",
+	"host": "http://localhost:8080"
+}
