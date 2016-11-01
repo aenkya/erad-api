@@ -3,11 +3,11 @@ var mongoose = require('mongoose');
 var TaskSchema = new mongoose.Schema({
 	
 	//task identity
-	name: String,
-	
+	task_name: String,
 	//task details
 	category: String,
 	note: String,
+	status: String,
 
 	//task users
 	created_by: String, //creator

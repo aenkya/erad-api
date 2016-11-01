@@ -1,5 +1,5 @@
 {
-	"dbURL": "mongodb://admin:admin@ds019866.mlab.com:19866/chatcat",
+	"dbURL": "mongodb://admin:admin@ds061076.mlab.com:61076/taskmanager",
 	"sessionSecret": "DFVDFVJDVDFVDFVJDVDFVDFVJDVDFVDFVJDV",
 	"fb": {
 		"appID":"1226658760690986",
