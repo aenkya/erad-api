@@ -28,15 +28,15 @@ router.post('/user', function(req, res, next){
 	        	as: "role"
 	        }},
             {$match: {_id: mongoose.Types.ObjectId(query.user_id)}},
-            { $unwind: {path: '$role', preserveNullAndEmptyArrays: true}},// also, is there any need to unwind the role, there's only one per person. Yes, if you don't when you try to access the data later then you will. let me try not unwinding and see the result. though its safer to unwind. it works fine. but ill leave it in. No what I mean is htat when you try to access the data after, the one's in an array will not be accessed. Yeah I get, but the role is not in array storage anywhere. thats for the subjects. thats why I was unwinding them. When you use look up then the results are returned in an array. ok ok I see. So anyways, this subjects thing. each user has an id. So when someone has subordinates, their subordinates id should either be in the subjects array, or the master-subordinate mapping should be stored and then all the data that matches the filter fetched
+            { $unwind: {path: '$role', preserveNullAndEmptyArrays: true}}// also, is there any need to unwind the role, there's only one per person. Yes, if you don't when you try to access the data later then you will. let me try not unwinding and see the result. though its safer to unwind. it works fine. but ill leave it in. No what I mean is htat when you try to access the data after, the one's in an array will not be accessed. Yeah I get, but the role is not in array storage anywhere. thats for the subjects. thats why I was unwinding them. When you use look up then the results are returned in an array. ok ok I see. So anyways, this subjects thing. each user has an id. So when someone has subordinates, their subordinates id should either be in the subjects array, or the master-subordinate mapping should be stored and then all the data that matches the filter fet
+            ,
             { $lookup: {
             	from: "users",
             	localField: "_id",
             	foreignField: "senior",
             	as: "subjects"
             }},
-            { $unwind: {path: '$subjects', preserveNullAndEmptyArrays: true}},
-            { $unwind: {path: '$senior', preserveNullAndEmptyArrays: true}}
+            { $unwind: {path: '$subjects', preserveNullAndEmptyArrays: true}}
 		], function (err, result) {
 	        if (err) {
 	            throw err;
