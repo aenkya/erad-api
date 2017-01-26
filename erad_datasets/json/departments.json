@@ -1,0 +1,4 @@
+[{"_id":{"$oid":"5820b409fc13ae512500231b"},"department_name":"6th generation"},
+{"_id":{"$oid":"5820b409fc13ae512500231c"},"department_name":"transitional"},
+{"_id":{"$oid":"5820b409fc13ae512500231d"},"department_name":"User-centric"},
+{"_id":{"$oid":"5820b409fc13ae512500231e"},"department_name":"algorithm"}]

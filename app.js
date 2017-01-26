@@ -5,17 +5,26 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+
 var config = require('./config/config.js');
+var routes = require('./routes/index');
+
 var session = require('express-session');
 var connectMongo  = require('connect-mongo')(session);
 var passport = require('passport');
 var port = process.env.PORT || 8080;
 var flash = require('connect-flash');
 var env = process.env.NODE_ENV || 'development';
-var flash = require('connect-flash');
-var jwt = require('jsonwebtoken');
-var routes = require('./routes/index');
+
 var app = express();
+
+var cors = require('cors')
+ 
+app.use(cors({
+    allowedOrigins: [
+        'http://localhost:3600/', 'google.com'
+    ]
+}))
 
 // error handlers
 
@@ -50,7 +59,7 @@ if (env === 'development') {
   app.use(session({
     secret:   config.sessionSecret,
     store:    new connectMongo({
-      //url: config.dbURL,
+      url: config.dbURL,
       mongoose_connection: mongoose.connections[0],
       stringify: true
     }),
@@ -66,13 +75,16 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 //
-app.set('superSecret', config.secret);//configure secret from database
+app.set('superSecret', config.sessionSecret);//configure secret from database
+
 app.use(logger('dev'));//user morgan to log requests to the console
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret: config.secret})); //session secret
+
+//required for passport
+app.use(session({secret: config.sessionSecret})); //session secret
 app.use(passport.initialize());
 app.use(passport.session()); //persistent login sessions
 app.use(flash()); //use connect-flash for flash messages stored in the session
