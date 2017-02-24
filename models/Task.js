@@ -11,7 +11,8 @@ var TaskSchema = new mongoose.Schema({
 	category: String,
 	description: String,
 	status: String,
-	priority: String,
+	priority: Boolean,
+	duration: Number,
 
 	//task users
 	created_by: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }, //creator
@@ -23,7 +24,8 @@ var TaskSchema = new mongoose.Schema({
 	created_at: {type: Date, Default: Date.now},
 	start_date: {type: Date, Default: Date.now},
 	updated_at: {type: Date, Default: Date.now},
-	completed_at: {type: Date}
+	completed_at: {type: Date},
+	finish_date: {type: Date}
 });
 
 module.exports = mongoose.model('Task', TaskSchema);

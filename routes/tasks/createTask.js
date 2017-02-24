@@ -15,6 +15,7 @@ router.post('/createTask', function(req, res, next){
 	task.status = req.body.status;
 	task.priority = req.body.priority;
 	task.parent_id = req.body.parent_id;
+	task.duration = req.body.duration;
 
 	task.created_by = req.body.created_by;
 	task.finished_by = req.body.finished_by;
@@ -22,7 +23,7 @@ router.post('/createTask', function(req, res, next){
 
 	//recording task creation time
 	task.created_at = Date.now();
-	task.start_date = Date.now();
+	task.start_date = req.body.start_date;
 	task.completed_at = req.body.completed_at;
 	task.updated_at = req.body.updated_at;
 

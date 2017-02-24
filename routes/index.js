@@ -27,6 +27,7 @@ var viewTasksById = require('./tasks/viewTasksById');
 var createTask = require('./tasks/createTask');
 var updateTask = require('./tasks/updateTask');
 var searchTask = require('./tasks/searchTask');
+var viewTasksByAssignedTo = require('./tasks/viewTasksByAssignedTo');
 
 
 
@@ -76,8 +77,12 @@ router.get('/viewTasks',  viewTasks);
 app.use( '/viewTasks',  viewTasks );
 
 //viewing specific tasks
-router.get('/viewTasks/:id', viewTasksById);
-app.use( '/viewTasks/:id',  viewTasksById );
+router.get('/viewTask/:id', viewTasksById);
+app.use( '/viewTask/:id',  viewTasksById );
+
+//viewing tasks assigned to specific user
+router.get('/viewTasks/:id', viewTasksByAssignedTo);
+app.use( '/viewTasks/:id',  viewTasksByAssignedTo );
 
 //Search for Task
 router.get('/searchTask',  searchTask);

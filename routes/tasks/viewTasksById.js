@@ -4,7 +4,7 @@ var config = require('../../config/config.js');
 var mongoose = require('mongoose');
 var Task = require('../../models/Task.js');
 var app = express();
-router.get('/viewTasks/:id', function(req, res, next) {
+router.get('/viewTask/:id', function(req, res, next) {
   Task.findById(req.params.id, function (err, post) {
     if (err) 
     	return next(res.json('No task with that ID'));

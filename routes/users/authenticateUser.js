@@ -31,10 +31,12 @@ router.post('/authenticate', function(req, res, next){
 			//check if password matches
 
 			user.comparePassword( req.body.password, function ( err, isMatch ){
-				if ( err ) throw err;
-                if ( !isMatch )
-                {
-                    res.status(406).send({ //will work
+				if ( err ) {
+					console.err();
+					/*throw err;*/
+				}
+                if ( !isMatch ){
+                    res.status(406).send({
 						message:"Incorrect password"
 					});
                 }
@@ -50,26 +52,9 @@ router.post('/authenticate', function(req, res, next){
 					token: token
 				});
             });
-			/*if (user.password != req.body.password) {
-				res.status(404).send({message:'Password Incorrect'});
-			} else {
-				//if user is found and password is right
-				//Create a token
-				var token = jwt.sign(user, secret, {
-					expiresIn: 1440
-				});
-
-				res.status(201).send({
-					id: user._id,
-					token: token
-				})
-			}*/
-		} //Do the quotes match. Yes they do. Okay run the application. this is good to go
+		}
 	})
 	
 });
 
 module.exports = router;
-
-//the authentication cant read the hashed password.That is what I was sating, You will have to usethe decrepit call 
-//how?

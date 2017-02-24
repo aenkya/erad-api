@@ -14,7 +14,6 @@ router.post('/setup', function(req, res, next){
 		if(!user){
 
 			var newUser = new User();
-			//had forgotten the local exists in the create method
 
 			newUser.local.email	=	req.body.email;
 			newUser.password =	req.body.password;
