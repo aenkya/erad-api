@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon app.js",
-    "preinstall": "npm install -g nodemon"
+    "start": "node app.js",
+    "erad-api": "nodemon app.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.0",
