@@ -15,7 +15,7 @@ var newUser = require('./users/newUser');
 var authenticateUser = require('./users/authenticateUser');
 var tokenAuthenticate = require('../middleware/tokenAuthenticate');
 var auth0 = require('../middleware/auth0');
-var getUserDetails = require('./users/getUserDetails');
+var getUserDetails = require('./users/getuserDetails');
 
 //Structure Files
 var newDepartment = require('./departments/add-department');
