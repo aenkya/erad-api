@@ -22,7 +22,7 @@ var cors = require('cors')
  
 app.use(cors({
     allowedOrigins: [
-        'http://localhost:3600/', 'google.com'
+        'http://localhost:3600/', 'google.com','http://localhost:3001/'
     ]
 }))
 

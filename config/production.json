@@ -1,10 +1,10 @@
 {
-	"dbURL": "mongodb://admin:admin@ds061076.mlab.com:61076/taskmanager",
+	"dbURL": "mongodb://admin:admin@ds113000.mlab.com:13000/erad",
 	"sessionSecret": "DFVDFVJDVDFVDFVJDVDFVDFVJDVDFVDFVJDV",
 	"fb": {
 		"appID":"1226658760690986",
 		"appSecret": "baf5fbcee27f16c9615641e8318c0f58",
 		"callbackURL": "https://chatcatsdet.herokuapp.com/auth/facebook/callback"
 	},
-	"host":"https://chatcatsdet.herokuapp.com/"
+	"host":"https://eradapi.herokuapp.com/"
 }

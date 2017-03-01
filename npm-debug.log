@@ -9,8 +9,8 @@
 6 silly lifecycle erad-api@0.0.0~prestart: no script for prestart, continuing
 7 info lifecycle erad-api@0.0.0~start: erad-api@0.0.0
 8 verbose lifecycle erad-api@0.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle erad-api@0.0.0~start: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Users\Bruce\erad-api\node_modules\.bin;c:\programdata\oracle\java\javapath;c:\python33\;c:\program files (x86)\iis express\php\v5.4;c:\program files (x86)\intel\icls client\;c:\program files\intel\icls client\;c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;c:\program files\intel\intel(r) management engine components\dal;c:\program files (x86)\intel\intel(r) management engine components\dal;c:\program files\intel\intel(r) management engine components\ipt;c:\program files (x86)\intel\intel(r) management engine components\ipt;c:\program files\intel\wifi\bin\;c:\program files\common files\intel\wirelesscommon\;c:\program files (x86)\windows kits\10\windows performance toolkit\;c:\program files\microsoft\web platform installer\;c:\program files\java\jdk1.8.0_51\bin;c:\program files\git\cmd;c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\ProgramData\ComposerSetup\bin;C:\Program Files (x86)\Yarn\bin;C:\Program Files (x86)\Heroku\bin;C:\Program Files (x86)\git\cmd;C:\Program Files (x86)\Git\cmd;C:\Users\Bruce\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\nodejs\;C:\Program Files\Java\jdk1.8.0_51;C:\Python27\Scripts;C:\Users\Bruce\AppData\Roaming\Composer\vendor\bin;C:\Program Files\MongoDB\Server\3.2\bin;C:\Users\Bruce\AppData\Roaming\npm\;C:\Users\Bruce\AppData\Roaming\npm
-10 verbose lifecycle erad-api@0.0.0~start: CWD: C:\Users\Bruce\erad-api
+9 verbose lifecycle erad-api@0.0.0~start: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Users\bruce\erad-api\node_modules\.bin;C:\Python27\;C:\Python27\Scripts;C:\Python33\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Program Files (x86)\Heroku\bin;C:\Program Files (x86)\git\cmd;C:\Program Files\Git\cmd;C:\Program Files\nodejs\node_modules\npm\bin;C:\Program Files\MongoDB\Server\3.2\bin;C:\Users\bruce\AppData\Roaming\npm;C:\Users\bruce\AppData\Local\Microsoft\WindowsApps
+10 verbose lifecycle erad-api@0.0.0~start: CWD: C:\Users\bruce\erad-api
 11 silly lifecycle erad-api@0.0.0~start: Args: [ '/d /s /c', 'node ./bin/www' ]
 12 silly lifecycle erad-api@0.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle erad-api@0.0.0~start: Failed to exec start script
@@ -25,8 +25,8 @@
 14 verbose stack     at maybeClose (internal/child_process.js:877:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid erad-api@0.0.0
-16 verbose cwd C:\Users\Bruce\erad-api
-17 error Windows_NT 10.0.10586
+16 verbose cwd C:\Users\bruce\erad-api
+17 error Windows_NT 10.0.14393
 18 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "start"
 19 error node v6.9.5
 20 error npm  v3.10.10
