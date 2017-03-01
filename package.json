@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon app.js",
-    "preinstall": "npm install -g nodemon",
+    "preinstall": "npm install -g nodemon"
   },
   "dependencies": {
     "bcryptjs": "^2.4.0",
