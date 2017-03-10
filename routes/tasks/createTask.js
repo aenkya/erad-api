@@ -24,7 +24,6 @@ router.post('/createTask', function(req, res, next){
 	//recording task creation time
 	task.created_at = Date.now();
 	task.start_date = req.body.start_date;
-	task.completed_at = req.body.completed_at;
 	task.updated_at = req.body.updated_at;
 
 

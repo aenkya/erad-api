@@ -26,6 +26,7 @@ var viewTasks = require('./tasks/viewTasks');
 var viewTasksById = require('./tasks/viewTasksById');
 var createTask = require('./tasks/createTask');
 var updateTask = require('./tasks/updateTask');
+var deleteTask = require('./tasks/deleteTask');
 var searchTask = require('./tasks/searchTask');
 var viewTasksByAssignedTo = require('./tasks/viewTasksByAssignedTo');
 
@@ -96,6 +97,10 @@ app.use( '/createTask', createTask );
 //update the contents of a specific task
 router.put('/updateTask/:id', updateTask);
 app.use( '/updateTask/:id', updateTask );
+
+//Delete Task
+router.delete('/deleteTask/:id', deleteTask);
+app.use( '/deleteTask/:id', deleteTask );
 
 module.exports = connect;
 module.exports = router;
