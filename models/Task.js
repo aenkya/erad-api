@@ -10,7 +10,7 @@ var TaskSchema = new mongoose.Schema({
 	//task details
 	category: String,
 	description: String,
-	status: String,
+	active: Boolean,
 	priority: Boolean,
 	duration: Number,
 
@@ -21,11 +21,11 @@ var TaskSchema = new mongoose.Schema({
 
 
 	//task timing
-	created_at: {type: Date, Default: Date.now},
-	start_date: {type: Date, Default: Date.now},
-	updated_at: {type: Date, Default: Date.now},
-	completed_at: {type: Date},
-	finish_date: {type: Date}
+	created_at: Number,
+	start_date: Number,
+	updated_at: Number,
+	completed_at: Number,
+	finish_date: Number
 });
 
 module.exports = mongoose.model('Task', TaskSchema);

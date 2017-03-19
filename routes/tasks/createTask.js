@@ -12,19 +12,19 @@ router.post('/createTask', function(req, res, next){
 	task.taskName	=	req.body.taskName;
 	task.category = req.body.category;
 	task.description = req.body.description;
-	task.status = req.body.status;
-	task.priority = req.body.priority;
-	task.parent_id = req.body.parent_id;
+	task.created_at = Date.now();
+	task.start_date = req.body.start_date;
+	task.created_at<task.start_date?task.status=true:task.status=false;
+	/*task.priority = req.body.priority;*/
+	if(req.body.parent_id)
+		task.parent_id=req.body.parent_id;
 	task.duration = req.body.duration;
 
 	task.created_by = req.body.created_by;
-	task.finished_by = req.body.finished_by;
 	task.assigned_to = req.body.assigned_to;
+	task.finish_date = task.start_date+task.duration;
 
 	//recording task creation time
-	task.created_at = Date.now();
-	task.start_date = req.body.start_date;
-	task.updated_at = req.body.updated_at;
 
 
 	task.save(function(err, post){
