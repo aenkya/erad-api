@@ -43,7 +43,7 @@ router.post('/authenticate', function(req, res, next){
                 //if the user is found and the password is right 
                 //create token
                 var token = jwt.sign( user, secret, {
-                    expiresIn: 10000 
+                    expiresIn: '120h' 
                 });
 
                 //return the information including token as json
