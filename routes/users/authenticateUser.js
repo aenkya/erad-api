@@ -36,21 +36,21 @@ router.post('/authenticate', function(req, res, next){
 					/*throw err;*/
 				}
                 if ( !isMatch ){
-                    res.status(406).send({
-						message:"Incorrect password"
-					});
+                  res.status(406).send({
+        						message:"Incorrect password"
+        					});
                 }
                 //if the user is found and the password is right 
                 //create token
                 var token = jwt.sign( user, secret, {
-                    expiresIn: '120h' 
+                  expiresIn: '120h' 
                 });
 
                 //return the information including token as json
                 res.status(201).send({
-					id: user._id,
-					token: token
-				});
+        					id: user._id,
+        					token: token
+        				});
             });
 		}
 	})

@@ -5,10 +5,10 @@ var mongoose = require('mongoose');
 var Task = require('../../models/Task.js');
 
 
-router.put('/updateTask/:id', function(req, res, next) {
-  Task.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+router.put('/updateTask', function(req, res, next) {
+  Task.findByIdAndUpdate(req.body._id, req.body, function (err, post) {
     if (err) return next(err);
-    res.json(post);
+    res.status(201).send(post);
   });
 });
 

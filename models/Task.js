@@ -25,7 +25,10 @@ var TaskSchema = new mongoose.Schema({
 	start_date: Number,
 	updated_at: Number,
 	completed_at: Number,
-	finish_date: Number
+	finish_date: Number,
+
+	//attachments
+	attachments: Array
 });
 
 module.exports = mongoose.model('Task', TaskSchema);
