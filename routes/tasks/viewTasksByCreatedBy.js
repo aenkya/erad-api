@@ -20,7 +20,8 @@ router.get('/viewTasks/out/:id', function(req, res, next) {
       foreignField: "_id",
       as: "created_by"
     }},
-    { $unwind: {path: '$attachments', preserveNullAndEmptyArrays: true}}
+    { $unwind: {path: '$attachments', preserveNullAndEmptyArrays: true}},
+    { "$sort": { "created_at": -1 } }
   ], function (err, result) {
       if (err) {
           throw err;
