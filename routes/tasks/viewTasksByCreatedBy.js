@@ -5,13 +5,13 @@ var Task = require('../../models/Task.js');
 
 var task = Task();
 
-router.get('/viewTasks/in/:id', function(req, res, next) {
+router.get('/viewTasks/out/:id', function(req, res, next) {
   var attachments = task.attachments;
   var query={};
-  query.assigned_to = req.params.id;
+  query.created_by = req.params.id;
 
   Task.aggregate([
-    { $match: {assigned_to: mongoose.Types.ObjectId(query.assigned_to)}},
+    { $match: {created_by: mongoose.Types.ObjectId(query.created_by)}},
     { $match: {completed_at: null}},
     { $unwind: {path: '$created_by', preserveNullAndEmptyArrays: true}},
     { $lookup: {

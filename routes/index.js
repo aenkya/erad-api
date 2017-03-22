@@ -29,6 +29,7 @@ var updateTask = require('./tasks/updateTask');
 var deleteTask = require('./tasks/deleteTask');
 var searchTask = require('./tasks/searchTask');
 var viewTasksByAssignedTo = require('./tasks/viewTasksByAssignedTo');
+var viewTasksByCreatedBy = require('./tasks/viewTasksByCreatedBy');
 
 
 
@@ -82,8 +83,12 @@ router.get('/viewTask/:id', viewTasksById);
 app.use( '/viewTask/:id',  viewTasksById );
 
 //viewing tasks assigned to specific user
-router.get('/viewTasks/:id', viewTasksByAssignedTo);
-app.use( '/viewTasks/:id',  viewTasksByAssignedTo );
+router.get('/viewTasks/in/:id', viewTasksByAssignedTo);
+app.use( '/viewTasks/in/:id',  viewTasksByAssignedTo );
+
+//viewing tasks created by specific user
+router.get('/viewTasks/out/:id', viewTasksByCreatedBy);
+app.use( '/viewTasks/out/:id',  viewTasksByCreatedBy );
 
 //Search for Task
 router.get('/searchTask',  searchTask);
@@ -95,12 +100,12 @@ app.use( '/createTask', createTask );
 
 
 //update the contents of a specific task
-router.put('/updateTask/:id', updateTask);
-app.use( '/updateTask/:id', updateTask );
+router.put('/updateTask', updateTask);
+app.use( '/updateTask', updateTask );
 
 //Delete Task
-router.delete('/deleteTask/:id', deleteTask);
-app.use( '/deleteTask/:id', deleteTask );
+router.delete('/deleteTask', deleteTask);
+app.use( '/deleteTask', deleteTask );
 
 module.exports = connect;
 module.exports = router;
