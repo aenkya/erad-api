@@ -12,15 +12,10 @@ var userMapping = new UserMapping();
 var config = require('../../config/config.js');
 
 //Get User Details
-router.post('/user', function(req, res, next){
-	var subjects = user.subjects;
+router.get('/user/:id', function(req, res, next){
 	var query={};
-  var role_data;
-  var user_permission = 6;
-  var user_department = "588759d382beab2ec054cf04";
-	if(req.body.id){
-		query.user_id = req.body.id;
-    query.role_id = "5887585dae324214a4a6e51f";
+	if(req.params.id){
+		query.user_id = req.params.id;
 
 		User.aggregate(
       [
@@ -33,14 +28,7 @@ router.post('/user', function(req, res, next){
         { $match: {_id: mongoose.Types.ObjectId(query.user_id)}},
         { $unwind: {path: '$role', preserveNullAndEmptyArrays: true}}
         ,
-        { $lookup: {
-        	from: "users",
-        	localField: "_id",
-        	foreignField: "senior",
-        	as: "subjects"
-        }},
-        { $unwind: {path: '$subjects', preserveNullAndEmptyArrays: true}},
-        { $project: { "is_active": 1, "gender": 1, "profile_pic_url": 1, "first_name": 1, "last_name": 1, "local": 1,"role": 1, "subjects": {"_id": 1, "role": 1, "is_active": 1, "profile_pic_url":1, "first_name":1, "last_name":1, "local":1} } }
+        { $project: { "is_active": 1, "gender": 1, "profile_pic_url": 1, "first_name": 1, "last_name": 1, "local": 1,"role": {"_id": 1, "role_name": 1}, "user_permission":1, "department":1 } }
   		], 
       function (err, result) {
         if (err) {
@@ -50,16 +38,7 @@ router.post('/user', function(req, res, next){
   			if(!user){
   				res.status(404).send({message:'User not found'});
   			} else if (user) {
-
-          Role.aggregate([
-            { $match: {department_id: user_department, permission: {$lt: user_permission}}},
-            {$project: {"_id": 1, "permission": 1, "role_name": 1}}
-            ], function(err, role_result) {
-              if (err)
-                throw err;
-              role_data = result;
-              res.status(201).send(role_data)
-          });
+          res.status(201).send(result);
   			}
       }
     );

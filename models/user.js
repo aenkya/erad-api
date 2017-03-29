@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 var role = require( './role' );
+var department = require( './department' );
 
 SALT_WORK_FACTOR = 10;
 
@@ -20,16 +21,15 @@ var userSchema = mongoose.Schema({
 		username: String
 	},
 
-	senior: { type: mongoose.Schema.Types.ObjectId, ref: this }, //the user's immediate superior
+    user_permission: Number, //the user's permission
+    department: { type: mongoose.Schema.Types.ObjectId, ref: 'department' }, //the user's department
+    role: { type: mongoose.Schema.Types.ObjectId, ref: 'role' }, //the user's role
+    is_active: Boolean, //the user's active status
 
 	first_name: String,
 	last_name: String,
 	profile_pic_url: String,
-	gender: String,
-
-	is_active: Boolean, //the user's active status
-
-	role: { type: mongoose.Schema.Types.ObjectId, ref: 'role' } //the user's role
+	gender: String
 })
 
 userSchema.pre( 'save', function ( next ){

@@ -23,7 +23,8 @@ router.post('/setup', function(req, res, next){
 			newUser.gender		=	req.body.gender;
 			newUser.is_active		=	req.body.is_active;
 			newUser.role		=	req.body.role;
-			newUser.senior		=	req.body.senior;
+			newUser.department = req.body.department;
+			newUser.user_permission = req.body.user_permission;
 
 			newUser.save(function(err, post){
 				if(err){

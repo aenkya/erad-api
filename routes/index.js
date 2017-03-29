@@ -10,12 +10,13 @@ var connect = require('./users/connect');
 	initialization of the route values exported from their respective files
 **/
 
-//User User Files
+//User Files
 var newUser = require('./users/newUser');
 var authenticateUser = require('./users/authenticateUser');
 var tokenAuthenticate = require('../middleware/tokenAuthenticate');
 var auth0 = require('../middleware/auth0');
 var getUserDetails = require('./users/getuserDetails');
+var getUserSubjects = require('./users/getUserSubjects');
 
 //Structure Files
 var newDepartment = require('./departments/add-department');
@@ -66,9 +67,12 @@ app.use( '/authenticate', authenticateUser);
 router.use(tokenAuthenticate);
 
 /*Getting the users details*/
-router.post('/user', getUserDetails);
-app.use( '/user', getUserDetails);
+router.get('/user/:id', getUserDetails);
+app.use( '/user/:id', getUserDetails);
 
+/*Getting the users subjects*/
+router.post('/user/subjects', getUserSubjects);
+app.use( '/user/subjects', getUserSubjects);
 
 /**
  * Task related Operations
