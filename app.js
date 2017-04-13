@@ -18,7 +18,7 @@ var env = process.env.NODE_ENV || 'development';
 
 var app = express();
 
-var cors = require('cors')
+var cors = require('cors');
  
 app.use(cors({
     allowedOrigins: [
@@ -78,8 +78,10 @@ app.set('view engine', 'ejs');
 app.set('superSecret', config.sessionSecret);//configure secret from database
 
 app.use(logger('dev'));//user morgan to log requests to the console
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(bodyParser.json({parameterLimit: 1000000, limit: '50mb'}));
+app.use(bodyParser.urlencoded({parameterLimit: 1000000, limit: '50mb', extended: false }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

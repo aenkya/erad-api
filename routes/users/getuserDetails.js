@@ -28,7 +28,7 @@ router.get('/user/:id', function(req, res, next){
         { $match: {_id: mongoose.Types.ObjectId(query.user_id)}},
         { $unwind: {path: '$role', preserveNullAndEmptyArrays: true}}
         ,
-        { $project: { "is_active": 1, "gender": 1, "profile_pic_url": 1, "first_name": 1, "last_name": 1, "local": 1,"role": {"_id": 1, "role_name": 1}, "user_permission":1, "department":1 } }
+        { $project: { "is_active": 1, "gender": 1, "profile_pic_url": 1, "first_name": 1, "last_name": 1, "local": 1,"role": {"_id": 1, "role_name": 1}, "user_permission":1, "department":1, "division": 1, "unit":1 } }
   		], 
       function (err, result) {
         if (err) {

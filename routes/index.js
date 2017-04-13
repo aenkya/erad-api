@@ -2,7 +2,7 @@ var express = require('express');
 
 var router = express.Router();
 var app = express();
-
+var multer = require('multer');
 //connect file
 var connect = require('./users/connect');
 
@@ -18,8 +18,13 @@ var auth0 = require('../middleware/auth0');
 var getUserDetails = require('./users/getuserDetails');
 var getUserSubjects = require('./users/getUserSubjects');
 
+//static file management
+var uploadFile = require('./files/fileUpload');
+
 //Structure Files
 var newDepartment = require('./departments/add-department');
+var newDivision = require('./departments/add-division');
+var newUnit = require('./departments/add-unit');
 var newRole = require('./roles/add-role');
 
 //Task Route files
@@ -27,6 +32,7 @@ var viewTasks = require('./tasks/viewTasks');
 var viewTasksById = require('./tasks/viewTasksById');
 var createTask = require('./tasks/createTask');
 var updateTask = require('./tasks/updateTask');
+var forwardTask = require('./tasks/forwardTask');
 var deleteTask = require('./tasks/deleteTask');
 var searchTask = require('./tasks/searchTask');
 var viewTasksByAssignedTo = require('./tasks/viewTasksByAssignedTo');
@@ -43,11 +49,20 @@ router.get('/', function(req, res, next) {
 *****/
 //Create department
 router.post('/departments/create', newDepartment);
-app.use( '/departments/create', newUser);
+app.use( '/departments/create', newDepartment);
+//Create division
+router.post('/departments/divisions/create', newDivision);
+app.use( '/departments/divisions/create', newDivision);
+//Create Unit
+router.post('/departments/units/create', newUnit);
+app.use( '/departments/units/create', newUnit);
 
 //Create Role
 router.post('/roles/create', newRole);
 app.use( '/roles/create', newRole);
+
+
+
 
 /**
  * User related operations
@@ -64,7 +79,12 @@ app.use('/signup', passport);*/
 router.post('/authenticate', authenticateUser);
 app.use( '/authenticate', authenticateUser);
 
-router.use(tokenAuthenticate);
+
+/**
+ * Static File Related Operations
+ */
+router.post('/uploadFile', uploadFile);
+app.use( '/uploadFile', uploadFile);
 
 /*Getting the users details*/
 router.get('/user/:id', getUserDetails);
@@ -73,6 +93,10 @@ app.use( '/user/:id', getUserDetails);
 /*Getting the users subjects*/
 router.post('/user/subjects', getUserSubjects);
 app.use( '/user/subjects', getUserSubjects);
+
+
+
+
 
 /**
  * Task related Operations
@@ -104,12 +128,16 @@ app.use( '/createTask', createTask );
 
 
 //update the contents of a specific task
-router.put('/updateTask', updateTask);
-app.use( '/updateTask', updateTask );
+router.put('/tasks/updateTask', updateTask);
+app.use( '/tasks/updateTask', updateTask );
+
+//Forward a task
+router.put('/tasks/forwardTask', forwardTask);
+app.use( '/tasks/forwardTask', forwardTask );
 
 //Delete Task
-router.delete('/deleteTask', deleteTask);
-app.use( '/deleteTask', deleteTask );
+router.delete('/tasks/deleteTask', deleteTask);
+app.use( '/tasks/deleteTask', deleteTask );
 
 module.exports = connect;
 module.exports = router;

@@ -17,18 +17,24 @@ var TaskSchema = new mongoose.Schema({
 	//task users
 	created_by: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }, //creator
 	finished_by: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }, //finisher
-	assigned_to: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }, //current user
+	currently_assigned_to: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }, //current user
 
 
 	//task timing
 	created_at: Number,
 	start_date: Number,
 	updated_at: Number,
-	completed_at: Number,
 	finish_date: Number,
 
 	//attachments
-	attachments: Array
+	activity: [{
+		task_primary: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+		task_secondary: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+		task_comment: String,
+		task_attachment: String,
+		created_at: Number,
+		completed_at: Number
+	}]
 });
 
 module.exports = mongoose.model('Task', TaskSchema);

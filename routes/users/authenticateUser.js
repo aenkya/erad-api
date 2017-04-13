@@ -11,9 +11,7 @@ var User = require('../../models/user.js');
 var user = new User();
 var config = require('../../config/config.js');
 
-
 var secret = config.sessionSecret;
-
 
 //Create user
 router.post('/authenticate', function(req, res, next){
@@ -35,23 +33,24 @@ router.post('/authenticate', function(req, res, next){
 					console.err();
 					/*throw err;*/
 				}
-                if ( !isMatch ){
-                  res.status(406).send({
-        						message:"Incorrect password"
-        					});
-                }
-                //if the user is found and the password is right 
-                //create token
-                var token = jwt.sign( user, secret, {
-                  expiresIn: '120h' 
-                });
+        if ( !isMatch ){
+          res.status(406).send({
+						message:'Incorrect password'
+					});
+        } else {
+          //if the user is found and the password is right 
+          //create token
+          var token = jwt.sign( user, secret, {
+            expiresIn: '120h' 
+          });
 
-                //return the information including token as json
-                res.status(201).send({
-        					id: user._id,
-        					token: token
-        				});
-            });
+          //return the information including token as json
+          res.status(201).send({
+  					id: user._id,
+  					token: token
+  				});
+        }
+    });
 		}
 	})
 	
