@@ -13,18 +13,15 @@ var Task = require('../../models/Task.js');
 
 router.put('/tasks/updateTask', uploadFunc, function(req, res, next) {
   var input_query = {};
-  input_query.task_id = req.body.task_id;
-  input_query.activity_id = req.body.activity_id;
-  input_query.currently_assigned_to = req.body.task_primary?req.body.task_primary:null;
-
-  modified_activity = {
-    "task_primary": mongoose.Types.ObjectId(req.body.activity.task_primary),
-    "task_secondary": mongoose.Types.ObjectId(req.body.activity.task_secondary),
-    "task_comment": "test",
+  if(req.body.task_id){
+    input_query.task_id = req.body.task_id;
+  } else {
+    res.status(400).send('No task ID provided');
   }
+  input_query.currently_assigned_to = req.body.task_primary?req.body.task_primary:null;
+  input_query.task_comment = req.body.task_comment?req.body.task_comment:null;
 
   if(req.body.task_secondary){
-    input_query.task_comment = req.body.task_comment?req.body.task_comment:null;
     input_query.task_primary = req.body.task_primary?req.body.task_primary:null;
     input_query.task_secondary = req.body.task_secondary?req.body.task_secondary:null;
     input_query.completed_at = null;
@@ -33,7 +30,7 @@ router.put('/tasks/updateTask', uploadFunc, function(req, res, next) {
       "task_primary": mongoose.Types.ObjectId(input_query.task_primary),
       "task_secondary": mongoose.Types.ObjectId(input_query.task_secondary),
       "task_comment": input_query.task_comment,
-      "created_at": input_query.created_at,
+      "created_at": Date.now(),
       "completed_at": null
     };
 
@@ -57,23 +54,33 @@ router.put('/tasks/updateTask', uploadFunc, function(req, res, next) {
     );
   } else if (req.body.completed_at){
     input_query.completed_at = Date.now()
+    model = req.body.activity;
+    var new_secondary;
+
+    for (i=(model.length-1);i>=0; i--){
+      if (model[i].task_secondary == req.body.task_primary){
+        model[i].completed_at = Date.now();
+        model[i].task_comment = input_query.task_comment;
+        new_secondary = model[i].task_primary;
+        break;
+      }
+    }
 
     Task.update(
       { 
-        "_id" : mongoose.Types.ObjectId(input_query.task_id),
-        "activity": null
+        "_id" : mongoose.Types.ObjectId(input_query.task_id)
       },
       { 
         $set: { 
-          "activity": modified_activity 
+          "activity": model,
+          "currently_assigned_to": mongoose.Types.ObjectId(new_secondary)
         }
       },
       function (err, result) {
         if (err){
           throw err;
         }
-        console.log(input_query.completed_at + result)
-        res.status(201).send(result);
+        res.status(503).send({'message':'service unavailable'});
       }
     );
   }
