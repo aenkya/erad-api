@@ -30,7 +30,10 @@ var TaskSchema = new mongoose.Schema({
 	activity: [{
 		task_primary: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
 		task_secondary: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
-		task_comment: String,
+		task_comment: [{
+			commentor: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
+			details: String
+		}],
 		task_attachment: String,
 		created_at: Number,
 		completed_at: Number

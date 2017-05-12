@@ -22,7 +22,10 @@ router.post('/createTask', function(req, res, next){
 		task.activity = [{
 			"task_primary": req.body.created_by,
 			"task_secondary": req.body.assigned_to,
-			"task_comment": req.body.description,
+			"task_comment": {
+				"commentor": req.body.created_by,
+				"details": req.body.description
+			},
 			"completed_at": null,
 			"created_at" :  Date.now()
 		}]
