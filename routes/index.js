@@ -37,6 +37,7 @@ var deleteTask = require('./tasks/deleteTask');
 var searchTask = require('./tasks/searchTask');
 var viewTasksByAssignedTo = require('./tasks/viewTasksByAssignedTo');
 var viewTasksByCreatedBy = require('./tasks/viewTasksByCreatedBy');
+var viewTasksHistory = require('./tasks/viewTasksHistory');
 
 
 
@@ -117,6 +118,10 @@ app.use( '/viewTasks/in/:id',  viewTasksByAssignedTo );
 //viewing tasks created by specific user
 router.get('/viewTasks/out/:id', viewTasksByCreatedBy);
 app.use( '/viewTasks/out/:id',  viewTasksByCreatedBy );
+
+//viewing tasks history for specific user
+router.get('/viewTasks/history/:id', viewTasksHistory);
+app.use( '/viewTasks/history/:id',  viewTasksHistory );
 
 //Search for Task
 router.get('/searchTask',  searchTask);
