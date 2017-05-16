@@ -18,6 +18,7 @@ router.put('/tasks/updateTask', uploadFunc, function(req, res, next) {
   } else {
     res.status(400).send('No task ID provided');
   }
+  console.log(req.body.task_primary)
   input_query.currently_assigned_to = req.body.task_primary?req.body.task_primary:null;
   input_query.task_comment = req.body.task_comment?req.body.task_comment:null;
   input_query.task_primary = req.body.task_primary?req.body.task_primary:null;
@@ -82,6 +83,7 @@ router.put('/tasks/updateTask', uploadFunc, function(req, res, next) {
           }
           model[i].task_comment.push(new_comment);
           new_secondary = model[i].task_primary;
+          console.log(new_secondary)
           break;
         }
       }
