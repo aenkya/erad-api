@@ -18,7 +18,6 @@ router.put('/tasks/updateTask', uploadFunc, function(req, res, next) {
   } else {
     res.status(400).send('No task ID provided');
   }
-  console.log(req.body.task_primary)
   input_query.currently_assigned_to = req.body.task_primary?req.body.task_primary:null;
   input_query.task_comment = req.body.task_comment?req.body.task_comment:null;
   input_query.task_primary = req.body.task_primary?req.body.task_primary:null;
@@ -53,7 +52,6 @@ router.put('/tasks/updateTask', uploadFunc, function(req, res, next) {
         if (err){
           throw err;
         }
-        console.log(result)
         res.status(201).send(result);
       }
     );
@@ -66,6 +64,7 @@ router.put('/tasks/updateTask', uploadFunc, function(req, res, next) {
         if (model[i].task_secondary == req.body.task_primary){
           model[i].completed_at = Date.now();
           new_secondary = model[i].task_primary;
+          console.log('no comment')
           break;
         }
       }
@@ -74,11 +73,12 @@ router.put('/tasks/updateTask', uploadFunc, function(req, res, next) {
         "task_primary": mongoose.Types.ObjectId(input_query.task_primary),
         "task_secondary": mongoose.Types.ObjectId(input_query.task_secondary)
       }
+      console.log('did it?')
       for (i=(model.length-1);i>=0; i--){
         if (model[i].task_secondary == req.body.task_primary){
           model[i].completed_at = Date.now();
           new_comment = {
-            "commentor" : model[i].task_primary,
+            "commentor" : model[i].task_secondary,
             "details" : input_query.task_comment
           }
           model[i].task_comment.push(new_comment);
@@ -87,9 +87,8 @@ router.put('/tasks/updateTask', uploadFunc, function(req, res, next) {
           break;
         }
       }
-      model.push()
     }
-
+    console.log(new_secondary)
     Task.update(
       { 
         "_id" : mongoose.Types.ObjectId(input_query.task_id)
@@ -104,7 +103,9 @@ router.put('/tasks/updateTask', uploadFunc, function(req, res, next) {
         if (err){
           throw err;
         }
-        res.status(503).send({'message':'service unavailable'});
+        console.log(new_secondary)
+        res.status(201).send(result);
+        console.log(new_secondary)
       }
     );
   }

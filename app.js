@@ -12,7 +12,7 @@ var routes = require('./routes/index');
 var session = require('express-session');
 var connectMongo  = require('connect-mongo')(session);
 var passport = require('passport');
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 9090;
 var flash = require('connect-flash');
 var env = process.env.NODE_ENV || 'development';
 
