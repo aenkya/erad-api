@@ -1,9 +1,11 @@
 var express = require('express');
+var app = express(); 
+var bodyParser = require('body-parser');
 var multer = require('multer');
 var fs = require('fs');
 var router = express.Router();
 
-var DIR = './public/images/';
+/*var DIR = './public/images/';
 
 var upload = multer({dest: DIR});
 
@@ -25,6 +27,33 @@ router.post('/uploadFile', type, function (req,res) {
     res.send('No file provided')
   }
 
+});*/
+
+var storage = multer.diskStorage({ //multers disk storage settings
+    destination: function (req, file, cb) {
+        cb(null, './public/attachments/');
+    },
+    filename: function (req, file, cb) {
+      var datetimestamp = Date.now();
+      cb(null, file.originalname);
+      /*
+      cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+       */
+    }
+});
+
+var upload = multer({ //multer settings
+                storage: storage
+            }).single('file');
+
+/** API path that will upload the files */
+router.post('/uploadFile', function(req, res, next) {
+    upload(req,res,function(err){
+        if(err){
+          return res.end(err.toString());
+        }
+        res.end('File is uploaded');
+    });
 });
 
 module.exports = router;

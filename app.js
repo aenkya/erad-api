@@ -83,6 +83,7 @@ app.use(bodyParser.json({parameterLimit: 1000000, limit: '50mb'}));
 app.use(bodyParser.urlencoded({parameterLimit: 1000000, limit: '50mb', extended: false }));
 
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 //required for passport

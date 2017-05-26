@@ -2,7 +2,6 @@ var express = require('express');
 
 var router = express.Router();
 var app = express();
-var multer = require('multer');
 //connect file
 var connect = require('./users/connect');
 

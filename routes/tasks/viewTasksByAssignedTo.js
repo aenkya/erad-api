@@ -19,7 +19,7 @@ router.get('/viewTasks/in/:id', function(req, res, next) {
       foreignField: "_id",
       as: "task_primary"
     }},
-    { "$sort": { "created_at": -1 } }
+    { "$sort": { "start_date": -1 } }
     /**TODO: Pick the task primaries and unwind
      **/
     /*,

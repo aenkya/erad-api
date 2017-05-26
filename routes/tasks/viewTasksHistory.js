@@ -14,25 +14,24 @@ router.get('/viewTasks/history/:id', function(req, res, next) {
   console.log(query.latest_date)
   Task.aggregate([
     { $match: {
-      currently_assigned_to: mongoose.Types.ObjectId(query._id)
+      activity: {
+        $elemMatch: {
+          completed_at: {$ne: null},
+          $or: [{
+            task_primary: mongoose.Types.ObjectId(query._id)
+          }, {
+            task_secondary: mongoose.Types.ObjectId(query._id),
+          }]
+        }
+      }
     }},
-    /*{ $unwind: {path: '$activity', preserveNullAndEmptyArrays: true}},*/
     { $lookup: {
       from: "users",
       localField: "activity.task_primary",
       foreignField: "_id",
       as: "task_primary"
     }},
-    { "$sort": { "created_at": -1 } }
-    /**TODO: Pick the task primaries and unwind
-     **/
-    /*,
-    { $unwind: {path: '$task_primary', preserveNullAndEmptyArrays: true}},
-    { "$group": {
-        "_id": "$_id",
-        "task_primary": {"$first": "$first_name"}
-      }
-    }*/
+    { "$sort": { "start_date": -1 } }
   ], function (err, result) {
       if (err) {
           throw err;

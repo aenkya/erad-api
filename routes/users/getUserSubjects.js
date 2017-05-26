@@ -15,8 +15,8 @@ router.post('/user/subjects', function(req, res, next){
     User.aggregate(
       [
         { $match: {
-          user_permission: { $gt: query.user_permission},
-          unit: mongoose.Types.ObjectId(query.user_unit),
+          /*user_permission: { $gt: query.user_permission},*/
+          /*unit: mongoose.Types.ObjectId(query.user_unit),*/
           is_active: true
         }}
         ,
@@ -40,7 +40,7 @@ router.post('/user/subjects', function(req, res, next){
     User.aggregate(
       [
         { $match: {
-          user_permission: { $gt: query.user_permission},
+          /*user_permission: { $gt: query.user_permission},*/
           department: mongoose.Types.ObjectId(query.user_department),
           is_active: true
         }}
