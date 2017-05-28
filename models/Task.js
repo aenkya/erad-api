@@ -34,7 +34,10 @@ var TaskSchema = new mongoose.Schema({
 			commentor: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
 			details: String
 		}],
-		task_attachment: String,
+		attachments: [{
+			uploader: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
+			details: Array
+		}],
 		created_at: Number,
 		completed_at: Number
 	}]

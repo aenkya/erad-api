@@ -1,17 +1,14 @@
 var express = require('express');
 var router = express.Router();
-var multer = require('multer');
-var upload = multer({
-  dest: __dirname + '../public/uploads/',
-  limits: {files:2}
-  });
-var uploadFunc = upload.fields([{name: 'attachments', maxCount: 2}]);
-
+var path = require('path');
 var mongoose = require('mongoose');
 var Task = require('../../models/Task.js');
 
+var task = Task();
 
-router.put('/tasks/updateTask', uploadFunc, function(req, res, next) {
+
+router.put('/tasks/updateTask', function(req, res, next) {
+
   var input_query = {};
   if(req.body.task_id){
     input_query.task_id = req.body.task_id;
@@ -19,21 +16,31 @@ router.put('/tasks/updateTask', uploadFunc, function(req, res, next) {
     res.status(400).send('No task ID provided');
   }
   input_query.currently_assigned_to = req.body.task_primary?req.body.task_primary:null;
-  input_query.task_comment = req.body.task_comment?req.body.task_comment:null;
   input_query.task_primary = req.body.task_primary?req.body.task_primary:null;
   input_query.task_secondary = req.body.task_secondary?req.body.task_secondary:null;
   input_query.completed_at = req.body.completed_at?Date.now():null;
+  input_query.task_comment = req.body.task_comment?req.body.task_comment:null;
+  
+  if (req.body.attachments.length>=1) {
+    input_query.attachments = []
+    for (i=0; i<req.body.attachments.length; i++) {
+      input_query.attachments.push("/attachments/" + req.body.attachments[i])
+    }
+  }
 
   if(req.body.task_secondary){
 
     activity = {
       "task_primary": mongoose.Types.ObjectId(input_query.task_primary),
       "task_secondary": mongoose.Types.ObjectId(input_query.task_secondary),
-      "task_comment": input_query.task_comment,
-      "task_comment": {
+      "task_comment": input_query.task_comment?{
         "commentor": input_query.task_primary,
         "details": input_query.task_comment
-      },
+      }:null,
+      "attachments": input_query.attachments?{
+        "uploader": input_query.task_primary,
+        "details": input_query.attachments
+      }:null,
       "created_at": Date.now(),
       "completed_at": null
     };
@@ -59,36 +66,30 @@ router.put('/tasks/updateTask', uploadFunc, function(req, res, next) {
     model = req.body.activity;
     var new_secondary;
 
-    if (input_query.task_comment===null) {
-      for (i=(model.length-1);i>=0; i--){
-        if (model[i].task_secondary == req.body.task_primary){
-          model[i].completed_at = Date.now();
-          new_secondary = model[i].task_primary;
-          console.log('no comment')
-          break;
+    for (i=(model.length-1);i>=0; i--){
+      if (model[i].task_secondary == req.body.task_primary){
+        model[i].completed_at = Date.now();
+        new_comment = {
+          "commentor" : model[i].task_secondary,
+          "details" : input_query.task_comment?input_query.task_comment:null
         }
-      }
-    } else {
-      added_comment = {
-        "task_primary": mongoose.Types.ObjectId(input_query.task_primary),
-        "task_secondary": mongoose.Types.ObjectId(input_query.task_secondary)
-      }
-      console.log('did it?')
-      for (i=(model.length-1);i>=0; i--){
-        if (model[i].task_secondary == req.body.task_primary){
-          model[i].completed_at = Date.now();
-          new_comment = {
-            "commentor" : model[i].task_secondary,
-            "details" : input_query.task_comment
-          }
+        new_attachments = {
+          "uploader": model[i].task_secondary,
+          "details": input_query.attachments
+        }
+        if (new_comment.details != null){
           model[i].task_comment.push(new_comment);
-          new_secondary = model[i].task_primary;
-          console.log(new_secondary)
-          break;
         }
+        if (new_attachments.details != null) {
+          model[i].attachments.push(new_attachments)
+          console.log(model[i].attachments)
+        }
+        new_secondary = model[i].task_primary;
+
+        break;
       }
     }
-    console.log(new_secondary)
+
     Task.update(
       { 
         "_id" : mongoose.Types.ObjectId(input_query.task_id)
@@ -103,9 +104,9 @@ router.put('/tasks/updateTask', uploadFunc, function(req, res, next) {
         if (err){
           throw err;
         }
-        console.log(new_secondary)
+
         res.status(201).send(result);
-        console.log(new_secondary)
+
       }
     );
   }
