@@ -19,7 +19,7 @@
     "express": "~4.13.4",
     "express-jwt": "^5.1.0",
     "express-session": "^1.14.1",
-    "jsonwebtoken": "^7.1.9",
+    "jsonwebtoken": "^8.0.0",
     "method-override": "^2.3.6",
     "mongoose": "^4.6.5",
     "mongoose-observer": "^0.1.2",
