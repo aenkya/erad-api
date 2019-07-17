@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "erad-api": "nodemon app.js"
+    "erad-api": "nodemon app.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "bcryptjs": "^2.4.0",
@@ -28,9 +30,11 @@
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
-  }
+  },
+  "snyk": true
 }
